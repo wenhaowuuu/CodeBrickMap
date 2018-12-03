@@ -14,9 +14,9 @@
 // 1. setting up the base map
 //1.SETTING UP THE BASEMAP
 var map = L.map('map', {
- center: [37.790043, -122.408451],
+ center: [37.790043, -122.208451],
  zoom: 11,
- // minZoom: 6,
+ minZoom: 7,
  maxZoom: 17
 });
 
@@ -69,7 +69,29 @@ document.addEventListener('DOMContentLoaded',function(){
          var place = sheet[i]; //getting e row from table
          L.marker([place.Hlat, place.Hlon])
            .addTo(map)
-           .bindPopup(place.FirstName + ' ' + place.LastName)
+           .bindPopup(
+             // "<img src=" + "/> " +
+             "<img src=https://simplemaps.com/static/img/frog.png>" +
+             "</br>" +
+
+             "<b>Name: </b>" +
+             place.FirstName + ' ' + place.LastName +
+             "</br>" +
+
+             "<b>Title: </b>" +
+             place.Title +
+             "</br>" +
+
+             "<b>Company: </b>" +
+             place.Company +
+             "</br>" +
+
+             "<b>Relationship: </b>" +
+             place.Relationship +
+             "</br>" +
+
+             "</br><button class='btn btn-light my-2 my-sm-0' style='font-size:12px;'>Connect!</button>"
+           )
        }
      },
      simpleSheet: true

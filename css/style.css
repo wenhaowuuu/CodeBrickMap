@@ -35,7 +35,8 @@ src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-op
 #header{
   position:fixed;
   height:30px;
-  background-color:#f07f30;
+  /* background-color: #f07f30; */
+  background-color: #2E64FE;
   top:0px;
   left:0;
   right:0;
