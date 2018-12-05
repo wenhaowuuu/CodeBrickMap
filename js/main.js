@@ -10,7 +10,8 @@
 
 
 //claim the global variables:
-
+var coordsMiddleSchools = [];
+var heat_middleschools;
 // 1. setting up the base map
 //1.SETTING UP THE BASEMAP
 var map = L.map('map', {
@@ -34,7 +35,7 @@ var darkmap = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}
 
 // var hybridmap = L.map('map-mappage').setView([-25.288145, -57.485214], 11);
 var hybridmap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-   attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 });
 
 //var satellite map
@@ -60,6 +61,7 @@ var sheeturl = 'https://docs.google.com/spreadsheets/d/1GW94JUDnyQYB3qzIK9sPuLUg
 //SHOW THE MAP DIV GRADUALLY
 $('#map-mappage').show(10000);
 
+
 // map.addLayer(hybridmap);
 document.addEventListener('DOMContentLoaded',function(){
  Tabletop.init({
@@ -67,6 +69,9 @@ document.addEventListener('DOMContentLoaded',function(){
      callback: function(sheet, tabletop){
        for (var i in sheet){
          var place = sheet[i]; //getting e row from table
+         var coord = [place.Hlat, place.Hlon];
+         coordsMiddleSchools.push(coord);
+
          L.marker([place.Hlat, place.Hlon])
            .addTo(map)
            .bindPopup(
@@ -91,19 +96,59 @@ document.addEventListener('DOMContentLoaded',function(){
              "</br>" +
 
              "</br><button class='btn btn-light my-2 my-sm-0' style='font-size:12px;'>Connect!</button>"
-           )
-       }
+           );
+
+           }
+
      },
      simpleSheet: true
-   })
+   });
+
+   //GENERATE HEATMAP FOR THE MIDDLE SCHOOL DATA
+   coordsMiddleSchools = coordsMiddleSchools.map(function (p) { return [p[0], p[1], 6]; });
+   console.log(coordsMiddleSchools);
+   // console.log(middleschools);
+
+    heat_middleschools = L.heatLayer(coordsMiddleSchools,{
+
+           radius: 36,
+           blur: 24,
+           maxZoom: 12,
+
+           // onEachFeature: function(feature,layer){
+           //   console.log(layer.feature.geometry);
+           //   // var coord = layer.feature.geometry.coordinates;
+           //   // coordsMiddleSchools.push(coord);
+           // },
+
+       });
+
+   console.log("middleschools heatmap generated.");
+
+
+
 }
 
 // function showInfo(data, tabletop) {
 //   alert('Successfully processed!')
 //   console.log(data);
 // }
+);
 
-)
+
+//control heatmap generation
+var heatmapcount = 0;
+$('#heatmapcontrol').click(function(){
+  heatmapcount++;
+  if(heatmapcount%2 === 0){
+    map.removeLayer(heat_middleschools);
+    console.log("heatmap removed.");
+  }
+  else{
+    map.addLayer(heat_middleschools);
+  }
+});
+
 
 //SWITCH THE BASEMAPS
 // $('#lightmap').click(function(){
