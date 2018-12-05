@@ -14,12 +14,19 @@ var coordsMiddleSchools = [];
 var heat_middleschools;
 // 1. setting up the base map
 //1.SETTING UP THE BASEMAP
+var southWest = L.latLng(37.015900, -123.355811),
+    northEast = L.latLng(38.270170, -121.379737),
+    bounds = L.latLngBounds(southWest, northEast);
+
 var map = L.map('map', {
+ maxBounds: bounds,
  center: [37.790043, -122.208451],
  zoom: 11,
  minZoom: 7,
  maxZoom: 17
 });
+
+
 
 var lightmap = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
  maxZoom: 18,
@@ -51,7 +58,36 @@ var satellitemap = L.tileLayer(
    maxZoom: 19,
 });
 
+$('#map-mappage').show(10000);
 map.addLayer(lightmap);
+
+
+//SWITCH THE BASEMAPS
+$('#lightmap').click(function(){
+  map.removeLayer(darkmap);
+  map.removeLayer(hybridmap);
+  map.addLayer(lightmap);
+})
+$('#darkmap').click(function(){
+  map.removeLayer(lightmap);
+  map.removeLayer(hybridmap);
+  map.addLayer(darkmap);
+})
+
+$('#hybridmap').click(function(){
+  map.removeLayer(lightmap);
+  map.removeLayer(darkmap);
+  map.addLayer(hybridmap);
+})
+
+$('#satellitemap').click(function(){
+  map.removeLayer(lightmap);
+  map.removeLayer(darkmap);
+  map.removeLayer(hybridmap);
+  map.addLayer(satellitemap);
+});
+
+
 
 
 

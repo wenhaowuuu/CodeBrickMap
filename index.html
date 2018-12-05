@@ -7,14 +7,83 @@
     <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/bootstrap.css"/>
     <link rel="stylesheet" href="css/style.css">
+
+
+    <!-- BELOW SETS UP THE CONTENT TREE FOR THE LAYERS -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BrickBlock 码砖队员分布图</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .bs-example{
+        	margin: 0;
+        }
+        .panel-title .glyphicon{
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            // Add minus icon for collapse element which is open by default
+            $(".collapse.in").each(function(){
+            	$(this).siblings(".panel-heading").find(".glyphicon").addClass("glyphicon-minus").removeClass("glyphicon-plus");
+            });
+
+            // Toggle plus minus icon on show hide of collapse element
+            $(".collapse").on('show.bs.collapse', function(){
+            	$(this).parent().find(".glyphicon").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+            }).on('hide.bs.collapse', function(){
+            	$(this).parent().find(".glyphicon").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+            });
+        });
+    </script>
+
 
   </head>
   <body>
     <!--Left Panel-->
     <div id = "header">
+
+      <div id="topbuttons-mappage" class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+        <div class="btn-group" role="group">
+          <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle my-2 my-sm-0" style="border-color:grey;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Basemap
+          </button>
+          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" id="lightmap" href="#">Light</a>
+            <a class="dropdown-item" id="darkmap" href="#">Dark</a>
+            <a class="dropdown-item" id="satellitemap" href="#">Satellite</a>
+          </div>
+        </div>
+
+        <div class="btn-group" role="group">
+          <!-- <button id="btnGroupDrop2" type="button" class="btn btn-dark dropdown-toggle my-2 my-sm-0" style="border-color:grey;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="selectedunit">Choose Unit</span>
+          </button> -->
+          <!-- <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+            <a class="dropdown-item" id="countryscale" href="#">Country</a>
+            <a class="dropdown-item" id="depscale" href="#">Department</a>
+            <a class="dropdown-item" id="distscale" href="#">District</a>
+          </div> -->
+          <button id="heatmapcontrol" type="button" class="btn btn-primary my-2 my-sm-0" style="border-color:grey;">
+            Heatmap
+          </button>
+          <!-- <button id="gapshowbutton" class="btn btn-dark" data-toggle="collapse" data-target="#rightcol-map" style="border-color:grey;">
+            <span id="selected5">Launch Analytics</span>
+          </button> -->
+        </div>
+
+      </div>
+
       <p id = "header_text"><strong> BrickBlock Group | San Francisco, CA </strong></p>
           <!-- <div id = "option">
               <ul>
@@ -24,14 +93,10 @@
                   <button id="cityincome" class="link" style ="margin-left:15px;"> -> City by Per Capita Income</button>
               </ul>
           </div> -->
-          <button id="heatmapcontrol" type="button" class="btn btn-dark my-2 my-sm-0" style="border-color:grey;">
-            Heatmap
-            <!-- <input  class="btn btn-dark my-2 my-sm-0" style="border-color:grey;" type="checkbox" name="vehicle" value="Bike"> -->
-          </button>
     </div>
     <div style="position: absolute; margin:15px; padding:10px; top:60px; left:15px; width: 360px; background-color: white; opacity: 0.6; filter: alpha(opacity=60); z-index:40;">
       <p style="font-family: Arial; color:black;">BrickBlock Group is an active connection group formed with architectural, engineering and construction industry professionals in the Bay Area. </p>
-      <p style="font-family: Arial; color:black;"># Add more functionalities, such as density map, filter based on age, title, and company dropdown etc. Targeting Thursday? </p>
+      <!-- <p style="font-family: Arial; color:black;"># Add more functionalities, such as density map, filter based on age, title, and company dropdown etc. Targeting Thursday? </p> -->
     </div>
     <!-- <div style="position: absolute; left: 4px; width: 400px; top: 30px; bottom: 0;z-index:50;">
         <h1 class = "main-heading"><strong>Economic Development </strong> in <strong id = "color"> Chinese </strong> Cities</h1>
@@ -127,20 +192,23 @@
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
-    <!-- <script src="https://cartodb-libs.global.ssl.fastly.net/cartodbui/assets/4.6.91/javascripts/vendoreditor3.js"></script>
-    <script src="https://cartodb-libs.global.ssl.fastly.net/cartodbui/assets/4.6.91/javascripts/commoneditor3.js"></script>
-    <script src="https://cartodb-libs.global.ssl.fastly.net/cartodbui/assets/4.6.91/javascripts/editor3.js"></script> -->
 
     <script
 			  src="https://code.jquery.com/jquery-2.2.4.min.js"
 			  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 			  crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
     <!-- <script src="js/MidTerm-setup.js"></script> -->
     <!-- <script src="js/bootstrap.js"></script> -->
+    <script src="js/bundle.js"></script>
     <script src="js/pdfreport.js"></script>
     <script src="js/leaflet-heat.js"></script>
     <script src="js/decode.js"></script>

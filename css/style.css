@@ -31,17 +31,24 @@ src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-op
     /* z-index:100; */
 }
 
-
 #header{
   position:fixed;
   height:30px;
   /* background-color: #f07f30; */
-  background-color: #2E64FE;
+  background-color: #5882FA;
   top:0px;
   left:0;
   right:0;
   margin-bottom:0px;
-  z-index: 70;
+  z-index:70;
+}
+
+#topbuttons-mappage{
+  position:absolute;
+  /* top:8%; */
+  top:40px;
+  width:40%;
+  left:460px;
 }
 
 #header_text{
@@ -53,6 +60,12 @@ src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-op
   font-family: Arial;
   font-size: 12px;
 }
+
+/* #heatmapcontrol{
+  position: relative;
+  top: 240px;
+  left: 2%;
+} */
 
 
 #option{
