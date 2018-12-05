@@ -105,6 +105,10 @@ document.addEventListener('DOMContentLoaded',function(){
    });
 
    //GENERATE HEATMAP FOR THE MIDDLE SCHOOL DATA
+
+   //Reference
+   // http://jsfiddle.net/jpeter06/yugh7t5m/
+
    coordsMiddleSchools = coordsMiddleSchools.map(function (p) { return [p[0], p[1], 6]; });
    console.log(coordsMiddleSchools);
    // console.log(middleschools);
