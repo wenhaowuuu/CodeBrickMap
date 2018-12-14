@@ -12,6 +12,8 @@
 //claim the global variables:
 var coordsMiddleSchools = [];
 var heat_middleschools;
+var CompanyMarkers = [];
+var HomeMarkers = [];
 // 1. setting up the base map
 //1.SETTING UP THE BASEMAP
 var southWest = L.latLng(37.015900, -123.355811),
@@ -44,6 +46,17 @@ var darkmap = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}
 var hybridmap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 });
+
+var nightlightmap = L.tileLayer('https://map1.vis.earthdata.nasa.gov/wmts-webmerc/VIIRS_CityLights_2012/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}', {
+	attribution: 'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System (<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
+	bounds: [[-85.0511287776, -179.999999975], [85.0511287776, 179.999999975]],
+	minZoom: 1,
+	maxZoom: 8,
+	format: 'jpg',
+	time: '',
+	tilematrixset: 'GoogleMapsCompatible_Level'
+});
+
 
 //var satellite map
 var mapLink =
@@ -87,6 +100,13 @@ $('#satellitemap').click(function(){
   map.addLayer(satellitemap);
 });
 
+$('#nighlightmap').click(function(){
+  map.removeLayer(lightmap);
+  map.removeLayer(darkmap);
+  map.removeLayer(hybridmap);
+  map.removeLayer(satellitemap);
+  // map.addLayer(nightlightmap);
+});
 
 
 
@@ -108,7 +128,37 @@ document.addEventListener('DOMContentLoaded',function(){
          var coord = [place.Hlat, place.Hlon];
          coordsMiddleSchools.push(coord);
 
-         L.marker([place.Hlat, place.Hlon])
+         var CompanyLayerMappedMarker = L.marker([place.Clat, place.Clon])
+           .bindPopup(
+             // "<img src=" + "/> " +
+             "<img src=https://ibb.co/WzbnY1P>" +
+             "</br>" +
+
+             "<b>Name: </b>" +
+             place.FirstName + ' ' + place.LastName +
+             "</br>" +
+
+             "<b>Title: </b>" +
+             place.Title +
+             "</br>" +
+
+             "<b>Company: </b>" +
+             place.Company +
+             "</br>" +
+
+             "<b>Relationship: </b>" +
+             place.Relationship +
+             "</br>" +
+
+             "</br><button class='btn btn-light my-2 my-sm-0' style='font-size:12px;'>Connect!</button>"
+           );
+
+        CompanyMarkers.push(CompanyLayerMappedMarker);
+        // console.log(CompanyMarkers);
+        console.log("company marker generated.");
+
+
+         var HomeLayerMappedMarker = L.marker([place.Hlat, place.Hlon])
            .addTo(map)
            .bindPopup(
              // "<img src=" + "/> " +
@@ -133,6 +183,8 @@ document.addEventListener('DOMContentLoaded',function(){
 
              "</br><button class='btn btn-light my-2 my-sm-0' style='font-size:12px;'>Connect!</button>"
            );
+
+        HomeMarkers.push(HomeLayerMappedMarker);
 
            }
 
@@ -188,6 +240,17 @@ $('#heatmapcontrol').click(function(){
     map.addLayer(heat_middleschools);
   }
 });
+
+
+//switch on the company markers
+//still need to bring the effect in!!!
+var ShowCompany = function(){
+  map.removeLayer(HomeMarkers);
+  map.addLayer(CompanyMarkers);
+  console.log("company markers added.");
+  // reference:
+  // https://jsfiddle.net/a99dkxp1/4/
+};
 
 
 //SWITCH THE BASEMAPS

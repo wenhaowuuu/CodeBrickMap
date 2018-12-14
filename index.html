@@ -62,6 +62,7 @@
             <a class="dropdown-item" id="lightmap" href="#">Light</a>
             <a class="dropdown-item" id="darkmap" href="#">Dark</a>
             <a class="dropdown-item" id="satellitemap" href="#">Satellite</a>
+            <a class="dropdown-item" id="nighlightmap" href="#">Night light</a>
           </div>
         </div>
 
@@ -97,6 +98,14 @@
     <div style="position: absolute; margin:15px; padding:10px; top:60px; left:15px; width: 360px; background-color: white; opacity: 0.6; filter: alpha(opacity=60); z-index:40;">
       <p style="font-family: Arial; color:black;">BrickBlock Group is an active connection group formed with architectural, engineering and construction industry professionals in the Bay Area. </p>
       <!-- <p style="font-family: Arial; color:black;"># Add more functionalities, such as density map, filter based on age, title, and company dropdown etc. Targeting Thursday? </p> -->
+      <!-- Rounded switch -->
+      <br>
+      <br>
+      <h5> Switch </h5>
+      <label id = "switcher" class="switch" ontoggle = "ShowCompany()">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
     </div>
     <!-- <div style="position: absolute; left: 4px; width: 400px; top: 30px; bottom: 0;z-index:50;">
         <h1 class = "main-heading"><strong>Economic Development </strong> in <strong id = "color"> Chinese </strong> Cities</h1>
