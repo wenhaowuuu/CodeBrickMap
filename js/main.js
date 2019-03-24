@@ -128,15 +128,15 @@ document.addEventListener('DOMContentLoaded',function(){
          var coord = [place.Hlat, place.Hlon];
          coordsMiddleSchools.push(coord);
 
-         var CompanyLayerMappedMarker = L.marker([place.Clat, place.Clon])
+         var CompanyLayerMappedMarker = L.marker([place.Clat, place.Clon]).addTo(map)
            .bindPopup(
              // "<img src=" + "/> " +
              "<img src=https://ibb.co/WzbnY1P>" +
              "</br>" +
 
-             "<b>Name: </b>" +
-             place.FirstName + ' ' + place.LastName +
-             "</br>" +
+             // "<b>Name: </b>" +
+             // place.FirstName + ' ' + place.LastName +
+             // "</br>" +
 
              "<b>Title: </b>" +
              place.Title +
@@ -146,9 +146,9 @@ document.addEventListener('DOMContentLoaded',function(){
              place.Company +
              "</br>" +
 
-             "<b>Relationship: </b>" +
-             place.Relationship +
-             "</br>" +
+             // "<b>Relationship: </b>" +
+             // place.Relationship +
+             // "</br>" +
 
              "</br><button class='btn btn-light my-2 my-sm-0' style='font-size:12px;'>Connect!</button>"
            );
