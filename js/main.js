@@ -112,14 +112,31 @@ $('#nighlightmap').click(function(){
 
 
 
+//map zipcodes in the Bay Area
+$(document).ready(function(){
+  $.ajax(zipcodes_url).done(function(data) {
+    var parsedzipdata = JSON.parse(data);
+    console.log("zipcodes parsed");
+    var layerMappedPolygons = L.geoJson(parsedzipdata,
+      {
+        style: {opacity:0.4,width:0.5,color:'#E0903F'},
+        // filter: myFilter2,
+        pointToLayer: function (feature, latlngs) {
+          return new L.Polygon(latlngs, {
+            });
+          }
+      }).addTo(map).bindPopup(feature.properties.zip);
+    });
+});
 
+
+
+//add the point data from the shared google sheet
 // var code = "2PACX-1vS7PmW1BbpRdjWqeTQJM7SjHKsuVMJAFf9-b5-BzTEtz15xcQ7Rz4a6VKGV09dArOFG8hb6C66Ydnww";
 var sheeturl = 'https://docs.google.com/spreadsheets/d/1GW94JUDnyQYB3qzIK9sPuLUgwnDyEy4w3eWBASjdFPE/edit?usp=sharing';
 
 //SHOW THE MAP DIV GRADUALLY
 $('#map-mappage').show(10000);
-
-
 // map.addLayer(hybridmap);
 document.addEventListener('DOMContentLoaded',function(){
  Tabletop.init({
@@ -228,27 +245,6 @@ document.addEventListener('DOMContentLoaded',function(){
 //   console.log(data);
 // }
 );
-
-
-
-//map zipcodes in the Bay Area
-$(document).ready(function(){
-  $.ajax(zipcodes_url).done(function(data) {
-    var parsedzipdata = JSON.parse(data);
-    console.log("zipcodes parsed");
-    var layerMappedPolygons = L.geoJson(parsedzipdata,
-      {
-        style: {opacity:0.4,width:0.5,color:'#E0903F'},
-        // filter: myFilter2,
-        pointToLayer: function (feature, latlngs) {
-          return new L.Polygon(latlngs, {
-            });
-          }
-      }).addTo(map).bindPopup(feature.properties.zip);
-    });
-});
-
-
 
 
 //control heatmap generation
