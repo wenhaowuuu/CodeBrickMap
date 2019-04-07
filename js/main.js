@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded',function(){
          coordsMiddleSchools.push(coord);
 
          var CompanyLayerMappedMarker = L.marker([place.Clat, place.Clon]).addTo(map)
-           .bindPopup(
+           .bindTooltip(
              // "<img src=" + "/> " +
              "<img src=https://ibb.co/WzbnY1P>" +
              "</br>" +
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
          var HomeLayerMappedMarker = L.marker([place.Hlat, place.Hlon])
            .addTo(map)
-           .bindPopup(
+           .bindTooltip(
              // "<img src=" + "/> " +
              "<img src=https://simplemaps.com/static/img/frog.png>" +
              "</br>" +
