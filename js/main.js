@@ -10,6 +10,8 @@
 
 
 //claim the global variables:
+var zipcodes_url = "https://raw.githubusercontent.com/wenhaowuuu/CodeBrickMap/master/data/bay_zipcode.geojson";
+
 var coordsMiddleSchools = [];
 var heat_middleschools;
 var CompanyMarkers = [];
@@ -226,6 +228,27 @@ document.addEventListener('DOMContentLoaded',function(){
 //   console.log(data);
 // }
 );
+
+
+
+//map zipcodes in the Bay Area
+$(document).ready(function(){
+  $.ajax(zipcodes_url).done(function(data) {
+    var parsedzipdata = JSON.parse(data);
+    console.log("zipcodes parsed");
+    var layerMappedPolygons = L.geoJson(parsedzipdata,
+      {
+        style: {opacity:0.4,width:0.5,color:'#E0903F'},
+        // filter: myFilter2,
+        pointToLayer: function (feature, latlngs) {
+          return new L.Polygon(latlngs, {
+            });
+          }
+      }).addTo(map).bindPopup(feature.properties.zip);
+    });
+});
+
+
 
 
 //control heatmap generation
