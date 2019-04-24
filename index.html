@@ -201,6 +201,43 @@ of new architecture and design application in trend. Events are hosted to share,
 
 
 
+
+<!-- // 20190423 adding a polyline based on the linkage points
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/dist/latest/wrld.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.1/leaflet.css" rel="stylesheet" />
+  </head>
+
+  <body>
+  <div style="position: relative">
+    <div id="map" style="height: 400px"></div>
+    <script>
+      var map = L.Wrld.map("map", "your_api_key_here", {
+        center: [37.780813, -122.404750],
+        zoom: 17
+      });
+
+      var polylinePoints = [
+        [37.781814, -122.404740],
+        [37.781719, -122.404637],
+        [37.781489, -122.404949],
+        [37.780704, -122.403945],
+        [37.780012, -122.404827]
+      ];
+
+      var polyline = L.polyline(polylinePoints).addTo(map);
+    </script>
+  </div>
+  </body>
+</html> -->
+
+
+
+
+
+
     <!-- A click on  -->
     <!-- Javascript Imports -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
